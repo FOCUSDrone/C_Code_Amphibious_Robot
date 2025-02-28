@@ -7,4 +7,6 @@ The integrated version of the DJI C model development board code for the suction
 - TMotor_drone_motors_controller(pwm)
 ## 开发环境：clion+cubemx
 利用cmake编译
+## [DJI官方例程](https://github.com/RoboMaster/Development-Board-C-Examples)
+
 
