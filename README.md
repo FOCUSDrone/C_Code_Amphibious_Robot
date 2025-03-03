@@ -23,13 +23,13 @@ The integrated version of the DJI C model development board code for the suction
 - │   │   ├── servo_receive.c     # 舵机接收线程，串口usart1中断
 - │   │   ├── test_task.c         # 测试线程，dubug用途
 - │   │   └── usb_task.c          # USB虚拟串口与上位机通信线程
-- ├── BSP/                        # DJI的C板底层库，是对Core底层的用户封装
+- ├── BSP/                        # DJI的C板底层库，是对Core底层的用户封装，构建应用层，导入库需要用此处的函数重构
 - ├── Core/                       # CubeMX生成文件，包括main和硬件底层，这里的文件都不需要修改
 - ├── Devices/                    # 一些复杂设备的驱动，主要是陀螺仪和压力计芯片的驱动
 - ├── Drivers/                    # CubeMX生成文件，包括freertos操作系统驱动，CMSIS驱动，不需要修改
-- ├── Library/                    # 第三方库和自定义算法
-- ├── MDK-ARM/                    # CubeMX生成文件, IDE配置文件夹，不需要修改
-- ├── Middlewares/                # CubeMX生成文件, 中间软件
+- ├── Library/                    # 第三方库和自定义算法（包括舵机、数学库）
+- ├── MDK-ARM/                    # CubeMX生成文件, IDE配置文件夹，用于keil的编译和储存编译后用于烧录的文件不需要修改
+- ├── Middlewares/                # CubeMX生成文件, 中间软件，包括freetos、数学库（CMSIS，相当底层芯片的运算加速）
 - └── USB_DEVICE/                 # CubeMX生成文件, 和虚拟串口有关的库，不需要修改
 
 
