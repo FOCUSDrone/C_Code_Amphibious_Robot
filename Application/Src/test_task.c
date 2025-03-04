@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file       test_task.c/h
   * @brief      测试线程，写什么都可以,开启线程需要头文件定义宏TEST_TASK_WORK，
-  *             会ban掉shoot和gimbal线程。
+  *             会ban掉transform和car线程。
   * @note       
   * @history
   *  Version    Date            Author          Modification
@@ -51,9 +51,6 @@ void test_task(void const * argument)
     key_data_point = get_key_data_point();
     test_short_press_cnt = 0;
     test_long_press_cnt = 0;
-    
-    usart1_rx_dma_init(usart1_rx_buf[0], usart1_rx_buf[1], 128);
-    setEnd(1);
     
 #ifndef TEST_TASK_WORK
     
