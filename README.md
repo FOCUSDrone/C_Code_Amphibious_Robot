@@ -9,6 +9,7 @@ The integrated version of the DJI C model development board code for the suction
 - 利用ARM编译器编译
 - PS：千万不要用gcc交叉编译，它与ARM编译器的语法有不同之处，即使cmake文件写对，也要做大量的修改工作（亲身体验，改了一个月改不完）
 ## [DJI官方例程](https://github.com/RoboMaster/Development-Board-C-Examples)
+- very important 学习资料，此处很多代码都参考了。
 ## 代码架构讲解
 - ├── Application/                # 应用层，所有的线程（包括中断）都在这里
 - │   ├── Inc/                    # 存放头文件
