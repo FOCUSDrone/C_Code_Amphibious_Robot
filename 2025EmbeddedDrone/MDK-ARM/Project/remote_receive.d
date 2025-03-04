@@ -1,0 +1,46 @@
+project\remote_receive.o: ..\Application\Src\remote_receive.c
+project\remote_receive.o: ../Application/Inc/remote_receive.h
+project\remote_receive.o: ../Library/User/struct_typedef.h
+project\remote_receive.o: ../BSP/Inc/bsp_rc.h
+project\remote_receive.o: ../Core/Inc/main.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
+project\remote_receive.o: ../Core/Inc/stm32f4xx_hal_conf.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
+project\remote_receive.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
+project\remote_receive.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
+project\remote_receive.o: ../Drivers/CMSIS/Include/core_cm4.h
+project\remote_receive.o: D:\Program Files\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+project\remote_receive.o: ../Drivers/CMSIS/Include/cmsis_version.h
+project\remote_receive.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+project\remote_receive.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+project\remote_receive.o: ../Drivers/CMSIS/Include/mpu_armv7.h
+project\remote_receive.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
+project\remote_receive.o: D:\Program Files\keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+project\remote_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
+project\remote_receive.o: ../BSP/Inc/bsp_usart.h
+project\remote_receive.o: D:\Program Files\keil_v5\ARM\ARMCC\Bin\..\include\string.h
+project\remote_receive.o: ../Application/Inc/detect_task.h
