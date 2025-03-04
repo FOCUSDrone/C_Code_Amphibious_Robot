@@ -1,4 +1,4 @@
-# !这个branch添加了未测试的car_bsp,fan_bsp,两个task,Adhesion_task与car_task!
+# !这个branch添加了完全未测试的car_bsp,fan_bsp,两个task,Adhesion_task与car_task!
 # The_C_board_code_for_the_suction_type_amphibious_robot.
 
 The integrated version of the DJI C model development board code for the suction-type amphibious robot.
