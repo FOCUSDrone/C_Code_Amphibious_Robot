@@ -16,82 +16,37 @@
 
 #include "main.h"
 #include "cmsis_os.h"
-#include "bsp_usart.h"
 #include "servo_receive.h"
 #include "detect_task.h"
-#include "SCSCL.h"
-#include "SCS.h"
-
-extern UART_HandleTypeDef huart1;
-uint8_t usart1_rx_buf[2][128];
-static servo_measure_t servo_measure[4];
+#include "ft_servo_app.h"
 
 
-/**
-  * @brief          servo_receive任务
-  * @param[in]      pvParameters: NULL
-  * @retval         none
-  */
+extern UART_HandleTypeDef huart1;  /* 使用UART1与舵机通信 */
+static int position=1;
+
+
+
 void servo_receive_task(void const * argument)
 {
-    usart1_rx_dma_init(usart1_rx_buf[0], usart1_rx_buf[1], 128);
-    setEnd(1);
+	// 假设使用UART3连接舵机
+	extern UART_HandleTypeDef huart1;
 
-    while(1)
-    {
-        uint8_t i = 0;
-        for (i=0;i<4;i++){
-            SCSCL_FeedBack(i+1);
-            if (!getLastError()){
-                servo_measure[i].pos     = SCSCL_ReadPos(-1);
-                servo_measure[i].vel     = SCSCL_ReadSpeed(-1);
-                servo_measure[i].load    = SCSCL_ReadLoad(-1);
-                servo_measure[i].voltage = SCSCL_ReadVoltage(-1);
-                servo_measure[i].temper  = SCSCL_ReadTemper(-1);
-                servo_measure[i].move    = SCSCL_ReadMove(-1);
-                vTaskDelay(SERVO_RECEIVE_TASK_TIME);
-            }
-        }
-        
-        vTaskDelay(SERVO_RECEIVE_TASK_TIME);
-    }
-}
-
-void USART1_IRQHandler(void)
-{
-    static volatile uint8_t res;
-    if(USART1->SR & UART_FLAG_IDLE)
-    {
-        __HAL_UART_CLEAR_PEFLAG(&huart1);
-
-        static uint16_t this_time_rx_len = 0;
-
-        if ((huart1.hdmarx->Instance->CR & DMA_SxCR_CT) == RESET)
-        {
-            __HAL_DMA_DISABLE(huart1.hdmarx);
-            this_time_rx_len = 128 - __HAL_DMA_GET_COUNTER(huart1.hdmarx);
-            __HAL_DMA_SET_COUNTER(huart1.hdmarx, 128);
-            huart1.hdmarx->Instance->CR |= DMA_SxCR_CT;
-            __HAL_DMA_ENABLE(huart1.hdmarx);
-            detect_hook(SCSCL_SERVO_TOE);
-        }
-        else
-        {
-            __HAL_DMA_DISABLE(huart1.hdmarx);
-            this_time_rx_len = 128 - __HAL_DMA_GET_COUNTER(huart1.hdmarx);
-            __HAL_DMA_SET_COUNTER(huart1.hdmarx, 128);
-            huart1.hdmarx->Instance->CR &= ~(DMA_SxCR_CT);
-            __HAL_DMA_ENABLE(huart1.hdmarx);
-            detect_hook(SCSCL_SERVO_TOE);
-        }
-    }
-}
-
-servo_measure_t* get_servo_measure_point(uint8_t servo_id)
-{
-    if (servo_id > 4){
-        return NULL;
-    }
+// 初始化舵机库
+	ft_servo_app_init(&huart1);
     
-    return &servo_measure[servo_id-1];
+    while(1) {
+    ft_servo_app_wheel_mode(1);               // 设置为恒速模式
+	ft_servo_app_write_speed(1, 500, 10);     // 以500速度正转
+	position = ft_servo_app_read_pos(1);
+	int speed = ft_servo_app_read_speed(1);
+	int load = ft_servo_app_read_load(1);
+	int voltage = ft_servo_app_read_voltage(1);
+	int temperature = ft_servo_app_read_temperature(1);
+	int moving = ft_servo_app_read_move(1);
+	int current = ft_servo_app_read_current(1);
+	
+
+
+    }
+
 }

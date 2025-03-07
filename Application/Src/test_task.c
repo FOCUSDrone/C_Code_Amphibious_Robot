@@ -25,59 +25,59 @@
 #include "arm_math.h"
 #include "CAN_receive.h"
 #include "key_task.h"
-#include "user_lib.h"
-#include "SCS.h"
-#include "SCSCL.h"
+//#include "user_lib.h"
+//#include "SCS.h"
+//#include "SCSCL.h"
 
-//按键输入
-const key_data_t *key_data_point;
-uint8_t test_short_press_cnt;
-uint8_t test_long_press_cnt;
+////按键输入
+//const key_data_t *key_data_point;
+//uint8_t test_short_press_cnt;
+//uint8_t test_long_press_cnt;
 
-extern uint8_t **usart1_rx_buf;
+//extern uint8_t **usart1_rx_buf;
 
-/**
-  * @brief          test task
-  * @param[in]      pvParameters: NULL
-  * @retval         none
-  */
-/**
-  * @brief          test任务
-  * @param[in]      pvParameters: NULL
-  * @retval         none
-  */
-void test_task(void const * argument)
-{
-    key_data_point = get_key_data_point();
-    test_short_press_cnt = 0;
-    test_long_press_cnt = 0;
-    
-#ifndef TEST_TASK_WORK
-    
-    while(1)
-    {
-        vTaskDelay(TEST_TASK_TIME);
-    }
-    
-#endif
+///**
+//  * @brief          test task
+//  * @param[in]      pvParameters: NULL
+//  * @retval         none
+//  */
+///**
+//  * @brief          test任务
+//  * @param[in]      pvParameters: NULL
+//  * @retval         none
+//  */
+//void test_task(void const * argument)
+//{
+//    key_data_point = get_key_data_point();
+//    test_short_press_cnt = 0;
+//    test_long_press_cnt = 0;
+//    
+//#ifndef TEST_TASK_WORK
+//    
+//    while(1)
+//    {
+//        vTaskDelay(TEST_TASK_TIME);
+//    }
+//    
+//#endif
 
-    while(1)
-    {
-        //短按
-        if(key_data_point->short_press_cnt > test_short_press_cnt){
-            test_short_press_cnt = key_data_point->short_press_cnt;
-            
-            SCSCL_WritePos(3, 1000, 0, 1500);
-        }
-        //长按
-        if(key_data_point->long_press_cnt > test_long_press_cnt){
-            test_long_press_cnt = key_data_point->long_press_cnt;
-            
-            SCSCL_WritePos(3, 20, 0, 1500);
-        }
-        
-        vTaskDelay(TEST_TASK_TIME);
-    }
-}
+//    while(1)
+//    {
+//        //短按
+//        if(key_data_point->short_press_cnt > test_short_press_cnt){
+//            test_short_press_cnt = key_data_point->short_press_cnt;
+//            
+//            SCSCL_WritePos(3, 1000, 0, 1500);
+//        }
+//        //长按
+//        if(key_data_point->long_press_cnt > test_long_press_cnt){
+//            test_long_press_cnt = key_data_point->long_press_cnt;
+//            
+//            SCSCL_WritePos(3, 20, 0, 1500);
+//        }
+//        
+//        vTaskDelay(TEST_TASK_TIME);
+//    }
+//}
 
 
