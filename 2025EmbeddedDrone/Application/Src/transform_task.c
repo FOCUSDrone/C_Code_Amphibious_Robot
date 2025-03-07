@@ -23,6 +23,7 @@
 #include "remote_receive.h"
 #include "bsp_push_rog.h"
 #include "SCSCL.h"
+#include "ft_servo_app.h"
 
 
 static transform_control_t transform_control;
@@ -71,6 +72,11 @@ void transform_task(void const * argument)
     }
 #endif
     
+    ft_servo_app_torque_enable(LEFT_SERVO_ID, 0);
+    ft_servo_app_torque_enable(RIGHT_SERVO_ID, 0);
+    left_push_rog_off();
+    right_push_rog_off();
+    
     while(1)
     {
         transform_set_mode(&transform_control);
@@ -93,6 +99,7 @@ static void transform_init(transform_control_t* init)
     init->servo_right = get_servo_measure_point(RIGHT_SERVO_ID);
     init->remote_point = get_remote_ch_point();
     init->push_rog_move_begin_time = 0;
+    
 }
 
 
@@ -225,43 +232,57 @@ static void transform_set_control(transform_control_t* control)
     case TRANSFORM_INIT:
         left_push_rog_off();
         right_push_rog_off();
-        SCSCL_WritePWM(LEFT_SERVO_ID,0);
-        SCSCL_WritePWM(RIGHT_SERVO_ID,0);
+        ft_servo_app_torque_enable(LEFT_SERVO_ID, 0);
+        ft_servo_app_torque_enable(RIGHT_SERVO_ID, 0);
+//        SCSCL_WritePWM(LEFT_SERVO_ID,0);
+//        SCSCL_WritePWM(RIGHT_SERVO_ID,0);
         break;
     case FLY_TRANSFORM_GROUND_SERVO:
         if (control->last_transform_state != FLY_TRANSFORM_GROUND_SERVO){
             left_push_rog_off();
             right_push_rog_off();
-            SCSCL_WritePos(LEFT_SERVO_ID, LEFT_SERVO_GROUND_POS,
-                SERVO_TIME, SERVO_SPEED);
-            SCSCL_WritePos(RIGHT_SERVO_ID, RIGHT_SERVO_GROUND_POS,
-                SERVO_TIME, SERVO_SPEED);
+            ft_servo_app_write_pos(LEFT_SERVO_ID, LEFT_SERVO_GROUND_POS,
+                                   SERVO_SPEED, SERVO_ACC);
+            ft_servo_app_write_pos(RIGHT_SERVO_ID, LEFT_SERVO_GROUND_POS,
+                                   SERVO_SPEED, SERVO_ACC);
+//            SCSCL_WritePos(LEFT_SERVO_ID, LEFT_SERVO_GROUND_POS,
+//                SERVO_TIME, SERVO_SPEED);
+//            SCSCL_WritePos(RIGHT_SERVO_ID, RIGHT_SERVO_GROUND_POS,
+//                SERVO_TIME, SERVO_SPEED);
         }
         break;
     case GROUND_TRANSFORM_FLY_SERVO:
         if (control->last_transform_state != GROUND_TRANSFORM_FLY_SERVO){
             left_push_rog_off();
             right_push_rog_off();
-            SCSCL_WritePos(LEFT_SERVO_ID, LEFT_SERVO_FLY_POS,
-                SERVO_TIME, SERVO_SPEED);
-            SCSCL_WritePos(RIGHT_SERVO_ID, RIGHT_SERVO_FLY_POS,
-                SERVO_TIME, SERVO_SPEED);
+            ft_servo_app_write_pos(LEFT_SERVO_ID, LEFT_SERVO_FLY_POS,
+                                   SERVO_SPEED, SERVO_ACC);
+            ft_servo_app_write_pos(RIGHT_SERVO_ID, RIGHT_SERVO_FLY_POS,
+                                   SERVO_SPEED, SERVO_ACC);
+//            SCSCL_WritePos(LEFT_SERVO_ID, LEFT_SERVO_FLY_POS,
+//                SERVO_TIME, SERVO_SPEED);
+//            SCSCL_WritePos(RIGHT_SERVO_ID, RIGHT_SERVO_FLY_POS,
+//                SERVO_TIME, SERVO_SPEED);
         }
         break;
     case FLY_TRANSFORM_GROUND_PUSH_ROD:
         if (control->last_transform_state != FLY_TRANSFORM_GROUND_PUSH_ROD){
-            shorten_left_push_rog();
-            shorten_right_push_rog();
-            SCSCL_WritePWM(LEFT_SERVO_ID,0);
-            SCSCL_WritePWM(RIGHT_SERVO_ID,0);
+            shorten_left_push_rog(PUSH_ROG_ON_PWM);
+            shorten_right_push_rog(PUSH_ROG_ON_PWM);
+            ft_servo_app_torque_enable(LEFT_SERVO_ID, 0);
+            ft_servo_app_torque_enable(RIGHT_SERVO_ID, 0);
+//            SCSCL_WritePWM(LEFT_SERVO_ID,0);
+//            SCSCL_WritePWM(RIGHT_SERVO_ID,0);
         }
         break;
     case GROUND_TRANSFORM_FLY_PUSH_ROD:
         if (control->last_transform_state != GROUND_TRANSFORM_FLY_PUSH_ROD){
-            elongate_left_push_rog();
-            elongate_right_push_rog();
-            SCSCL_WritePWM(LEFT_SERVO_ID,0);
-            SCSCL_WritePWM(RIGHT_SERVO_ID,0);
+            elongate_left_push_rog(PUSH_ROG_ON_PWM);
+            elongate_right_push_rog(PUSH_ROG_ON_PWM);
+            ft_servo_app_torque_enable(LEFT_SERVO_ID, 0);
+            ft_servo_app_torque_enable(RIGHT_SERVO_ID, 0);
+//            SCSCL_WritePWM(LEFT_SERVO_ID,0);
+//            SCSCL_WritePWM(RIGHT_SERVO_ID,0);
         }
         break;
     }

@@ -29,7 +29,7 @@
 
 extern UART_HandleTypeDef huart3;
 extern DMA_HandleTypeDef hdma_usart3_rx;
-int16_t remote_ch[SBUS_RX_BUF_CH_NUM];
+static int16_t remote_ch[SBUS_RX_BUF_CH_NUM];
 
 //接收原始数据，为18个字节，给了36个字节长度，防止DMA传输越界
 static uint8_t sbus_rx_buf[2][SBUS_RX_BUF_NUM];
@@ -86,7 +86,7 @@ void USART3_IRQHandler(void)
                 sbus_to_remote_ch(sbus_rx_buf[0], remote_ch);
                 //记录数据接收时间
                 detect_hook(DBUS_TOE);
-                sbus_to_usart1(sbus_rx_buf[0]);
+//                sbus_to_usart1(sbus_rx_buf[0]);
             }
         }
         else
@@ -118,7 +118,7 @@ void USART3_IRQHandler(void)
                 sbus_to_remote_ch(sbus_rx_buf[1], remote_ch);
                 //记录数据接收时间
                 detect_hook(DBUS_TOE);
-                sbus_to_usart1(sbus_rx_buf[1]);
+//                sbus_to_usart1(sbus_rx_buf[1]);
             }
         }
     }
@@ -182,7 +182,7 @@ static void sbus_to_remote_ch(volatile const uint8_t *sbus_buf, int16_t *remote_
   * @param[in]      sbus: sbus数据, 18字节
   * @retval         none
   */
-void sbus_to_usart1(uint8_t *sbus)
+static void sbus_to_usart1(uint8_t *sbus)
 {
     static uint8_t usart_tx_buf[20];
     static uint8_t i =0;

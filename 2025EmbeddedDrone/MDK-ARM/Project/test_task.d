@@ -68,3 +68,7 @@ project\test_task.o: ../Library/User/user_lib.h
 project\test_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 project\test_task.o: ../Library/SCSLib/SCS.h
 project\test_task.o: ../Library/SCSLib/SCSCL.h
+project\test_task.o: ../Library/feelt_servo/Inc/ft_servo_app.h
+project\test_task.o: ../Library/feelt_servo/Inc/ft_servo_protocol.h
+project\test_task.o: ../Library/SCSLib/SMS_STS.h
+project\test_task.o: ../BSP/Inc/bsp_push_rog.h

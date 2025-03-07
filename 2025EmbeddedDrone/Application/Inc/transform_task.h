@@ -39,6 +39,10 @@
 
 #define SERVO_SPEED     1000
 #define SERVO_TIME      0
+#define SERVO_ACC       50
+
+#define SERVO_REMOTE_CHANNEL    0
+#define CHANNEL_TO_SERVO_SPEED  
 
 typedef enum
 {

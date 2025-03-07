@@ -63,3 +63,5 @@ project\transform_task.o: ../Application/Inc/detect_task.h
 project\transform_task.o: ../BSP/Inc/bsp_usart.h
 project\transform_task.o: ../BSP/Inc/bsp_push_rog.h
 project\transform_task.o: ../Library/SCSLib/SCSCL.h
+project\transform_task.o: ../Library/feelt_servo/Inc/ft_servo_app.h
+project\transform_task.o: ../Library/feelt_servo/Inc/ft_servo_protocol.h

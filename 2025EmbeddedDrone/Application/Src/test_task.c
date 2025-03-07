@@ -28,11 +28,16 @@
 #include "user_lib.h"
 #include "SCS.h"
 #include "SCSCL.h"
+#include "ft_servo_app.h"
+#include "SMS_STS.h"
+#include "bsp_push_rog.h"
 
 //按键输入
 const key_data_t *key_data_point;
 uint8_t test_short_press_cnt;
 uint8_t test_long_press_cnt;
+
+static bool_t key_flip_state;
 
 extern uint8_t **usart1_rx_buf;
 
@@ -63,18 +68,43 @@ void test_task(void const * argument)
 
     while(1)
     {
+        
         //短按
         if(key_data_point->short_press_cnt > test_short_press_cnt){
             test_short_press_cnt = key_data_point->short_press_cnt;
             
-            SCSCL_WritePos(3, 1000, 0, 1500);
+            left_push_rog_off();
+            right_push_rog_off();
+            
+//            test1 = ft_servo_app_torque_enable(1, 0);
+            ft_servo_app_torque_enable(2, 1);
+//            ft_servo_app_torque_enable(3, 0);
+//            ft_servo_app_torque_enable(4, 0);
+//            ft_servo_app_write_pos(1, 0, 0, 0);
+//            ft_servo_app_write_speed(1, 0, 0);
+//            ft_servo_app_write_pos(1, 1000, 1500, 200);
+//            SCSCL_WritePos(1, 1000, 0, 1500);
         }
         //长按
         if(key_data_point->long_press_cnt > test_long_press_cnt){
             test_long_press_cnt = key_data_point->long_press_cnt;
             
-            SCSCL_WritePos(3, 20, 0, 1500);
+            if (key_flip_state == 0){
+                elongate_left_push_rog(PUSH_ROG_ON_PWM);
+                elongate_right_push_rog(PUSH_ROG_ON_PWM);
+                key_flip_state = 1;
+            }
+            else if (key_flip_state == 1){
+                shorten_left_push_rog(PUSH_ROG_ON_PWM);
+                shorten_right_push_rog(PUSH_ROG_ON_PWM);
+                key_flip_state = 0;
+            }
+//            ft_servo_app_write_speed(1, 1000, 100);
+//            ft_servo_app_write_pos(1, 2000, 600, 10);
+ 
         }
+        
+        
         
         vTaskDelay(TEST_TASK_TIME);
     }

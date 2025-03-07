@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file       servo_receive.c/h
-  * @brief      舵机回传接收，有usart1中断线程，有servo_receive线程
+  * @brief      舵机回传接收
   * @note       
   * @history
   *  Version        Date        Author      Modification
@@ -19,13 +19,10 @@
 #include "bsp_usart.h"
 #include "servo_receive.h"
 #include "detect_task.h"
-#include "SCSCL.h"
-#include "SCS.h"
+#include "ft_servo_app.h"
 
-extern UART_HandleTypeDef huart1;
-uint8_t usart1_rx_buf[2][128];
 static servo_measure_t servo_measure[4];
-
+extern UART_HandleTypeDef huart1;
 
 /**
   * @brief          servo_receive任务
@@ -34,56 +31,26 @@ static servo_measure_t servo_measure[4];
   */
 void servo_receive_task(void const * argument)
 {
-    usart1_rx_dma_init(usart1_rx_buf[0], usart1_rx_buf[1], 128);
-    setEnd(1);
-
+    ft_servo_app_init(&huart1);
+    
+    static servo_measure_t* point1 = &servo_measure[0];
+    static servo_measure_t* point2 = &servo_measure[1];
+    static servo_measure_t* point3 = &servo_measure[2];
+    static servo_measure_t* point4 = &servo_measure[3];
     while(1)
     {
         uint8_t i = 0;
         for (i=0;i<4;i++){
-            SCSCL_FeedBack(i+1);
-            if (!getLastError()){
-                servo_measure[i].pos     = SCSCL_ReadPos(-1);
-                servo_measure[i].vel     = SCSCL_ReadSpeed(-1);
-                servo_measure[i].load    = SCSCL_ReadLoad(-1);
-                servo_measure[i].voltage = SCSCL_ReadVoltage(-1);
-                servo_measure[i].temper  = SCSCL_ReadTemper(-1);
-                servo_measure[i].move    = SCSCL_ReadMove(-1);
-                vTaskDelay(SERVO_RECEIVE_TASK_TIME);
-            }
+            servo_measure[i].pos     = ft_servo_app_read_pos(i+1);
+            servo_measure[i].vel     = ft_servo_app_read_speed(i+1);
+            servo_measure[i].load    = ft_servo_app_read_load(i+1);
+            servo_measure[i].voltage = ft_servo_app_read_voltage(i+1);
+            servo_measure[i].temper  = ft_servo_app_read_temperature(i+1);
+            servo_measure[i].move    = ft_servo_app_read_move(i+1);
+            servo_measure[i].current = ft_servo_app_read_current(i+1);
         }
         
         vTaskDelay(SERVO_RECEIVE_TASK_TIME);
-    }
-}
-
-void USART1_IRQHandler(void)
-{
-    static volatile uint8_t res;
-    if(USART1->SR & UART_FLAG_IDLE)
-    {
-        __HAL_UART_CLEAR_PEFLAG(&huart1);
-
-        static uint16_t this_time_rx_len = 0;
-
-        if ((huart1.hdmarx->Instance->CR & DMA_SxCR_CT) == RESET)
-        {
-            __HAL_DMA_DISABLE(huart1.hdmarx);
-            this_time_rx_len = 128 - __HAL_DMA_GET_COUNTER(huart1.hdmarx);
-            __HAL_DMA_SET_COUNTER(huart1.hdmarx, 128);
-            huart1.hdmarx->Instance->CR |= DMA_SxCR_CT;
-            __HAL_DMA_ENABLE(huart1.hdmarx);
-            detect_hook(SCSCL_SERVO_TOE);
-        }
-        else
-        {
-            __HAL_DMA_DISABLE(huart1.hdmarx);
-            this_time_rx_len = 128 - __HAL_DMA_GET_COUNTER(huart1.hdmarx);
-            __HAL_DMA_SET_COUNTER(huart1.hdmarx, 128);
-            huart1.hdmarx->Instance->CR &= ~(DMA_SxCR_CT);
-            __HAL_DMA_ENABLE(huart1.hdmarx);
-            detect_hook(SCSCL_SERVO_TOE);
-        }
     }
 }
 

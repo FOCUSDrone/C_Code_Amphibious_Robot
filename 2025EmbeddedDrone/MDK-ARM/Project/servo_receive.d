@@ -57,5 +57,5 @@ project\servo_receive.o: ../Library/User/struct_typedef.h
 project\servo_receive.o: ../Application/Inc/servo_receive.h
 project\servo_receive.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 project\servo_receive.o: ../Application/Inc/detect_task.h
-project\servo_receive.o: ../Library/SCSLib/SCSCL.h
-project\servo_receive.o: ../Library/SCSLib/SCS.h
+project\servo_receive.o: ../Library/feelt_servo/Inc/ft_servo_app.h
+project\servo_receive.o: ../Library/feelt_servo/Inc/ft_servo_protocol.h
