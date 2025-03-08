@@ -65,3 +65,8 @@ project\transform_task.o: ../BSP/Inc/bsp_push_rog.h
 project\transform_task.o: ../Library/SCSLib/SCSCL.h
 project\transform_task.o: ../Library/feelt_servo/Inc/ft_servo_app.h
 project\transform_task.o: ../Library/feelt_servo/Inc/ft_servo_protocol.h
+project\transform_task.o: ../Library/CMSIS_DSP/arm_math.h
+project\transform_task.o: ../Drivers/CMSIS/Include/core_cm4.h
+project\transform_task.o: D:\Program Files\keil_v5\ARM\ARMCC\Bin\..\include\string.h
+project\transform_task.o: D:\Program Files\keil_v5\ARM\ARMCC\Bin\..\include\math.h
+project\transform_task.o: ../Library/User/user_lib.h

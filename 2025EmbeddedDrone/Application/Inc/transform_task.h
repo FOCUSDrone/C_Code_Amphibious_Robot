@@ -24,25 +24,29 @@
 #include "servo_receive.h"
 
 #define TRANSFORM_TASK_TIME         1
-#define LEFT_SERVO_ID               1
-#define RIGHT_SERVO_ID              2
-#define TRANSFORM_REMOTE_CHANNEL    5
+#define FRONT_SERVO_ID              1
+#define BEHIND_SERVO_ID             2
+#define TRANSFORM_REMOTE_CHANNEL    7
 #define ALL_MOVE_ENABLE_CHANNEL     6
 
-#define LEFT_SERVO_GROUND_POS       0
-#define LEFT_SERVO_FLY_POS          0
-#define RIGHT_SERVO_GROUND_POS      0
-#define RIGHT_SERVO_FLY_POS         0
+#define FRONT_SERVO_GROUND_POS       3005
+#define FRONT_SERVO_FLY_POS          3105
+#define BEHIND_SERVO_GROUND_POS      3160
+#define BEHIND_SERVO_FLY_POS         3260
 
-#define PUSH_ROG_ELONGATE_NEED_TIME    0
-#define PUSH_ROG_SHORTEN_NEED_TIME     0
+#define PUSH_ROG_ELONGATE_NEED_TIME    8000
+#define PUSH_ROG_SHORTEN_NEED_TIME     8000
 
 #define SERVO_SPEED     1000
-#define SERVO_TIME      0
 #define SERVO_ACC       50
 
-#define SERVO_REMOTE_CHANNEL    0
-#define CHANNEL_TO_SERVO_SPEED  
+#define SERVO_NORMAL_DELTA_POS  100
+#define MAX_AGAINST_ERROR_POS   10
+
+#define MAX_AGAINST_TIME    1000
+#define NEED_REVERSE_TIME   2000
+
+#define SERVO_MAX_LOAD  500
 
 typedef enum
 {
@@ -61,9 +65,10 @@ typedef struct
 {
     transform_state_e transform_state;
     transform_state_e last_transform_state;
+    transform_state_e before_disable_transform_state;
     const int16_t* remote_point;
-    servo_measure_t* servo_left;
-    servo_measure_t* servo_right;
+    servo_measure_t* servo_front;
+    servo_measure_t* servo_behind;
     uint32_t push_rog_move_begin_time;
 } transform_control_t;
 

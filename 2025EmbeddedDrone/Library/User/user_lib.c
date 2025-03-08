@@ -286,3 +286,12 @@ float uint_to_float(int x_int, float x_min, float x_max, int bits)
     float offset = x_min;
     return ((float)x_int)*span/((float)((1<<bits)-1)) + offset;
 }
+
+int16_t int16_abs(int16_t val)
+{
+    if (val < 0){
+        return -val;
+    }
+    else return val;
+}
+

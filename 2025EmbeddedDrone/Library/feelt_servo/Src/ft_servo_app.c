@@ -187,6 +187,17 @@ int ft_servo_app_torque_enable(uint8_t ID, uint8_t Enable)
 }
 
 /**
+ * @brief 保护使能
+ * @param ID 舵机ID
+ * @param Enable 45-全开启
+ * @return 是否成功：1-成功，0-失败
+ */
+int ft_servo_protect_enable(uint8_t ID, uint8_t Enable)
+{
+    return ft_protocol_write_byte(ID, FT_SMS_PROTECT_ENABLE, Enable);
+}
+
+/**
  * @brief 解锁EPROM
  * @param ID 舵机ID
  * @return 是否成功：1-成功，0-失败
