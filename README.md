@@ -1,3 +1,6 @@
+# 注意事项：
+- car相关一些代码已经可以运行并且有真机测试，but不够robust，Feiziben还在优化他。
+- transform相关代码还需要真机测试，但是我们认为他可行，于是先行加入
 # The_C_board_code_for_the_suction_type_amphibious_robot.
 The integrated version of the DJI C model development board code for the suction-type amphibious robot.
 ## 陆空两栖无人机的C板底层控制代码，包括：
