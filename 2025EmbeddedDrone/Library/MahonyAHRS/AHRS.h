@@ -14,7 +14,7 @@ extern void AHRS_init(fp32 quat[4], const fp32 accel[3], const fp32 mag[3]);
 
 /**
   * @brief          根据陀螺仪的数据，加速度的数据，磁力计的数据进行四元数更新
-  * @param[in]      需要更新的四元数数组
+  * @param[out]     需要更新的四元数数组
   * @param[in]      更新定时时间，固定定时调用，例如1000Hz，传入的数据为0.001f,
   * @param[in]      用于更新的陀螺仪数据,数组顺序(x,y,z) 单位 rad
   * @param[in]      用于初始化的加速度数据,数组顺序(x,y,z) 单位 m/s2 

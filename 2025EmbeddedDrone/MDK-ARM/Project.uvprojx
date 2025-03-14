@@ -2048,6 +2048,11 @@
               <FileType>1</FileType>
               <FilePath>..\BSP\Src\bsp_push_rog.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_car.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\Src\bsp_car.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2202,6 +2207,11 @@
               <FileName>ft_servo_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Library\feelt_servo\Src\ft_servo_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\User\pid.c</FilePath>
             </File>
           </Files>
         </Group>

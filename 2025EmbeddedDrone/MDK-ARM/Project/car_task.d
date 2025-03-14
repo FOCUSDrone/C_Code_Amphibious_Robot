@@ -54,4 +54,19 @@ project\car_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
 project\car_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 project\car_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 project\car_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
+project\car_task.o: ../Application/Inc/transform_task.h
 project\car_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
+project\car_task.o: ../Application/Inc/remote_receive.h
+project\car_task.o: ../BSP/Inc/bsp_rc.h
+project\car_task.o: ../Application/Inc/servo_receive.h
+project\car_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
+project\car_task.o: ../Application/Inc/CAN_receive.h
+project\car_task.o: ../Library/User/pid.h
+project\car_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
+project\car_task.o: ../Library/CMSIS_DSP/arm_math.h
+project\car_task.o: ../Drivers/CMSIS/Include/core_cm4.h
+project\car_task.o: D:\Program Files\keil_v5\ARM\ARMCC\Bin\..\include\string.h
+project\car_task.o: D:\Program Files\keil_v5\ARM\ARMCC\Bin\..\include\math.h
+project\car_task.o: ../Library/User/user_lib.h
+project\car_task.o: ../BSP/Inc/bsp_car.h
+project\car_task.o: ../Application/Inc/detect_task.h

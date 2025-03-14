@@ -1,6 +1,6 @@
-project\pid.o: ..\Algorithm\Src\pid.c
-project\pid.o: ../Algorithm/Inc/pid.h
-project\pid.o: ../Library/struct_typedef.h
+project\pid.o: ..\Library\User\pid.c
+project\pid.o: ..\Library\User\pid.h
+project\pid.o: ..\Library\User\struct_typedef.h
 project\pid.o: ../Core/Inc/main.h
 project\pid.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 project\pid.o: ../Core/Inc/stm32f4xx_hal_conf.h

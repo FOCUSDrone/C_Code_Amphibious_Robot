@@ -29,11 +29,32 @@
 #include "CAN_receive.h"
 #include "key_task.h"
 #include "user_lib.h"
+#include "pid.h"
 
-#define TEST_TASK_WORK
+//#define TEST_TASK_WORK
 
 #define TEST_TASK_TIME  1
 
+//PI·ÖÊý
+#define PI_FOUR                     0.78539816339744830961566084581988f
+#define PI_TEN                      0.314f
 
+typedef struct
+{
+    const motor_measure_t *motor_measure;
+    pid_type_def angle_pid;
+	pid_type_def speed_pid;
+    fp32 speed;
+    fp32 speed_set;
+    fp32 angle;
+    fp32 angle_set;
+	fp32 current_set;
+    int16_t given_current;
+    int8_t ecd_count;
+
+    uint16_t block_time;
+    uint16_t reverse_time;
+    bool_t move_flag;
+} m2006_test_t;
 
 #endif
