@@ -7,41 +7,22 @@
 #include <stdint.h>
 #include "cmsis_os.h"
 #include "bsp_usart.h"
-#include "main.h"
-
-extern UART_HandleTypeDef huart1;
+#include "arm_math.h"
 
 uint8_t wBuf[128];
 uint8_t wLen = 0;
 
-//FT舵机串口指令发送函数
-void ftUart_Send(uint8_t *nDat , int nLen)
-{
-//    usart1_tx_dma_enable(nDat, nLen);
-	HAL_UART_Transmit(&huart1, nDat, nLen, 100);
-}
+void ftUart_Send(uint8_t *nDat, int nLen);
+int ftUart_Read(uint8_t *nDat, int nLen);
+void ftBus_Delay(void);
 
-//FT舵机串口指令应答接收函数
-int ftUart_Read(uint8_t *nDat, int nLen)
-{
-	if(HAL_OK!=HAL_UART_Receive(&huart1, nDat, nLen, 100)){
-		return 0;
-	}else{
-		return nLen;
-	}
-}
-
-//FT舵机总线切换延时，时间大于10us
-void ftBus_Delay(void)
-{
-    osDelay(1);
-//	HAL_Delay(1);
-}
+extern uint8_t **usart1_rx_buf;
 
 //UART 接收数据接口
 int readSCS(unsigned char *nDat, int nLen)
 {
-	return ftUart_Read(nDat, nLen);
+    memcpy(nDat, usart1_rx_buf[0], nLen);
+    return nLen;
 }
 
 //UART 发送数据接口
@@ -60,14 +41,14 @@ int writeSCS(unsigned char *nDat, int nLen)
 //接收缓冲区刷新
 void rFlushSCS()
 {
-	ftBus_Delay();
+    vTaskDelay(1);
 }
 
 //发送缓冲区刷新
 void wFlushSCS()
 {
 	if(wLen){
-		ftUart_Send(wBuf, wLen);
+		usart1_tx_dma_enable(wBuf, wLen);
 		wLen = 0;
 	}
 }
