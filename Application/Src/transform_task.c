@@ -94,8 +94,8 @@ void transform_task(void const * argument)
     
     while(1)
     {
-//        transform_set_mode(&transform_control);
-//        transform_set_control(&transform_control);
+        transform_set_mode(&transform_control);
+        transform_set_control(&transform_control);
         vTaskDelay(TRANSFORM_TASK_TIME);
     }
 }
@@ -274,16 +274,16 @@ static void transform_set_control(transform_control_t* control)
         break;
     case FLY_TRANSFORM_GROUND_PUSH_ROD:
         if (control->last_transform_state != FLY_TRANSFORM_GROUND_PUSH_ROD){
-            shorten_left_push_rog();
-            shorten_right_push_rog();
+            shorten_left_push_rog(PUSH_ROG_ON_PWM);
+            shorten_right_push_rog(PUSH_ROG_ON_PWM);
             ft_servo_app_torque_enable(FRONT_SERVO_ID, 0);
             ft_servo_app_torque_enable(BEHIND_SERVO_ID, 0);
         }
         break;
     case GROUND_TRANSFORM_FLY_PUSH_ROD:
         if (control->last_transform_state != GROUND_TRANSFORM_FLY_PUSH_ROD){
-            elongate_left_push_rog();
-            elongate_right_push_rog();
+            elongate_left_push_rog(PUSH_ROG_ON_PWM);
+            elongate_right_push_rog(PUSH_ROG_ON_PWM);
             ft_servo_app_torque_enable(FRONT_SERVO_ID, 0);
             ft_servo_app_torque_enable(BEHIND_SERVO_ID, 0);
         }
@@ -297,8 +297,7 @@ static void transform_set_control(transform_control_t* control)
   * @param[in]      is_against 结构体控制块
   * @retval         none
   */
-static bool_t is_left_hand_against_right_hand(transform_control_t* is_against)
-{
+static bool_t is_left_hand_against_right_hand(transform_control_t* is_against){
     static uint16_t against_time = 0;
     static uint16_t reverse_time = 0;
     bool_t ret = 0;
@@ -349,8 +348,3 @@ static bool_t is_left_hand_against_right_hand(transform_control_t* is_against)
 //{
 //    shoot_control.block_time = 0;
 //}
-
-const transform_control_t* get_transform_point(void)
-{
-    return &transform_control;
-}

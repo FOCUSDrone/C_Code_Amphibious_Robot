@@ -5,7 +5,7 @@
   * @note       作为car_task的底层模块
   * @history
   *  Version    Date            Author          Modification
-  *  V1.0.0     2025-03-14      Claude          1. 完成
+  *  V1.0.0     2025-03-14      Feiziben          1. 完成
   *
   @verbatim
   ==============================================================================
@@ -28,6 +28,11 @@
 /* 电机配置，2006电机 */
 #define LEFT_MOTOR_ID          0x201   // 左电机ID: 0x201
 #define RIGHT_MOTOR_ID         0x202   // 右电机ID: 0x202
+
+/* 电机PID参数 - 针对RM2006电机优化 */
+#define MOTOR_SPEED_KP        12.0f
+#define MOTOR_SPEED_KI        0.5f
+#define MOTOR_SPEED_KD        0.0f
 
 /**
   * @brief          电机控制初始化

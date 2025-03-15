@@ -31,7 +31,7 @@
 #define REMOTE_CH_VALUE_OFFSET  ((uint16_t)1000)
 #define REMOTE_CH_VALUE_MAX     ((uint16_t)1800)
 
-#define REMOTE_DEADBAND         10    
+#define REMOTE_DEADBAND         50    
 
 #define REMOTE_SW_UP_RANGE                ((int16_t)700)
 #define REMOTE_SW_MID_RANGE               ((int16_t)100)

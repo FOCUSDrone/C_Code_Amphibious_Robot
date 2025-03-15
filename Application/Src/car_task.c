@@ -5,7 +5,7 @@
   * @note       作为独立RTOS线程实现
   * @history
   *  Version    Date            Author          Modification
-  *  V1.0.0     2025-03-14      Claude          1. 完成
+  *  V1.0.0     2025-03-14      Feiziben          1. 完成
   *
   @verbatim
   ==============================================================================
@@ -56,7 +56,7 @@ void car_task(void *pvParameters)
         // 获取遥控器数据
         const int16_t *remote_ch = get_remote_ch_point();
         
-        // 设置底盘控制指令，使用遥控器的通道0和通道1
+        // 设置底盘控制指令，使用遥控器的通道0和通道3
         chassis_set_control(remote_ch[1], remote_ch[0]);
         
         // 执行底盘控制计算

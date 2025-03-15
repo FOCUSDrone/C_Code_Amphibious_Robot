@@ -5,7 +5,7 @@
   * @note       作为car_task的底层模块
   * @history
   *  Version    Date            Author          Modification
-  *  V1.0.0     2025-03-14      Claude          1. 完成
+  *  V1.0.0     2025-03-14      Feiziben          1. 完成
   *
   @verbatim
   ==============================================================================
@@ -18,6 +18,7 @@
 #include "motor_control.h"
 #include "can_receive.h"
 #include <math.h>
+
 
 /* PID控制结构体 */
 typedef struct {
@@ -50,10 +51,7 @@ typedef struct {
     const motor_measure_t *right_motor; // 右电机数据
 } motor_control_t;
 
-/* 电机PID参数 - 针对RM2006电机优化 */
-#define MOTOR_SPEED_KP        12.0f
-#define MOTOR_SPEED_KI        0.5f
-#define MOTOR_SPEED_KD        0.0f
+
 
 /* 全局变量 */
 static motor_control_t motor_control;    // 电机控制数据
@@ -150,6 +148,7 @@ void motor_control_init(void)
     // 获取电机数据指针
     motor_control.left_motor = get_chassis_motor1_measure_point();  // 获取左电机数据
     motor_control.right_motor = get_chassis_motor2_measure_point(); // 获取右电机数据
+	
     
     // 初始化控制参数
     motor_control.left_speed_set = 0.0f;

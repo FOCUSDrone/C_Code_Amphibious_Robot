@@ -72,7 +72,6 @@ typedef struct
     uint32_t push_rog_move_begin_time;
 } transform_control_t;
 
-const transform_control_t* get_transform_point(void);
 
 #endif
   

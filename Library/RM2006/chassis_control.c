@@ -5,7 +5,7 @@
   * @note       作为car_task的底层模块
   * @history
   *  Version    Date            Author          Modification
-  *  V1.0.0     2025-03-14      Claude          1. 完成
+  *  V1.0.0     2025-03-14      Feiziben          1. 完成
   *
   @verbatim
   ==============================================================================
