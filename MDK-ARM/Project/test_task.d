@@ -1,0 +1,75 @@
+project\test_task.o: ..\Application\Src\test_task.c
+project\test_task.o: ../Application/Inc/test_task.h
+project\test_task.o: ../Library/User/struct_typedef.h
+project\test_task.o: ../Core/Inc/main.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
+project\test_task.o: ../Core/Inc/stm32f4xx_hal_conf.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
+project\test_task.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
+project\test_task.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
+project\test_task.o: ../Drivers/CMSIS/Include/core_cm4.h
+project\test_task.o: D:\Program Files\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+project\test_task.o: ../Drivers/CMSIS/Include/cmsis_version.h
+project\test_task.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+project\test_task.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+project\test_task.o: ../Drivers/CMSIS/Include/mpu_armv7.h
+project\test_task.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
+project\test_task.o: D:\Program Files\keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+project\test_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
+project\test_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
+project\test_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+project\test_task.o: ../Core/Inc/FreeRTOSConfig.h
+project\test_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+project\test_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+project\test_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+project\test_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+project\test_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+project\test_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+project\test_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+project\test_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
+project\test_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
+project\test_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
+project\test_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
+project\test_task.o: ../BSP/Inc/bsp_usart.h
+project\test_task.o: ../BSP/Inc/bsp_buzzer.h
+project\test_task.o: ../Application/Inc/remote_receive.h
+project\test_task.o: ../BSP/Inc/bsp_rc.h
+project\test_task.o: ../Middlewares/ST/ARM/DSP/Inc/arm_math.h
+project\test_task.o: D:\Program Files\keil_v5\ARM\ARMCC\Bin\..\include\string.h
+project\test_task.o: D:\Program Files\keil_v5\ARM\ARMCC\Bin\..\include\math.h
+project\test_task.o: D:\Program Files\keil_v5\ARM\ARMCC\Bin\..\include\float.h
+project\test_task.o: D:\Program Files\keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+project\test_task.o: ../Application/Inc/CAN_receive.h
+project\test_task.o: ../Application/Inc/key_task.h
+project\test_task.o: ../Library/User/user_lib.h
+project\test_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
+project\test_task.o: ../Library/SCSLib/SCS.h
+project\test_task.o: ../Library/SCSLib/SCSCL.h
+project\test_task.o: ../Library/feelt_servo/Inc/ft_servo_app.h
+project\test_task.o: ../Library/feelt_servo/Inc/ft_servo_protocol.h
+project\test_task.o: ../Library/SCSLib/SMS_STS.h
+project\test_task.o: ../BSP/Inc/bsp_push_rog.h

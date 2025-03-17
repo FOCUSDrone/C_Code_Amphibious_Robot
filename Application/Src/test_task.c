@@ -90,13 +90,13 @@ void test_task(void const * argument)
             test_long_press_cnt = key_data_point->long_press_cnt;
             
             if (key_flip_state == 0){
-                elongate_left_push_rog(PUSH_ROG_ON_PWM);
-                elongate_right_push_rog(PUSH_ROG_ON_PWM);
+                elongate_left_push_rog();
+                elongate_right_push_rog();
                 key_flip_state = 1;
             }
             else if (key_flip_state == 1){
-                shorten_left_push_rog(PUSH_ROG_ON_PWM);
-                shorten_right_push_rog(PUSH_ROG_ON_PWM);
+                shorten_left_push_rog();
+                shorten_right_push_rog();
                 key_flip_state = 0;
             }
 //            ft_servo_app_write_speed(1, 1000, 100);

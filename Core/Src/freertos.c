@@ -53,11 +53,11 @@ osThreadId buzzerTaskHandle;
 osThreadId ledTaskHandle;
 osThreadId usbTaskHandle;
 osThreadId detectTaskHandle;
-osThreadId gimbalTaskHandle;
-osThreadId shootTaskHandle;
 osThreadId keyTaskHandle;
-osThreadId refereeRxTaskHandle;
-osThreadId refereeTxTaskHandle;
+osThreadId transformTaskHandle;
+osThreadId carTaskHandle;
+osThreadId servoRxTaskHandle;
+osThreadId adsorptionTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -70,11 +70,11 @@ void buzzer_task(void const * argument);
 void led_task(void const * argument);
 void usb_task(void const * argument);
 void detect_task(void const * argument);
-void gimbal_task(void const * argument);
-void shoot_task(void const * argument);
 void key_task(void const * argument);
-void referee_rx_task(void const * argument);
-void referee_tx_task(void const * argument);
+void transform_task(void const * argument);
+void car_task(void const * argument);
+void servo_receive_task(void const * argument);
+void adsorption_task(void const * argument);
 
 extern void MX_USB_DEVICE_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -146,25 +146,25 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(detectTask, detect_task, osPriorityNormal, 0, 256);
   detectTaskHandle = osThreadCreate(osThread(detectTask), NULL);
 
-  /* definition and creation of gimbalTask */
-  osThreadDef(gimbalTask, gimbal_task, osPriorityNormal, 0, 512);
-  gimbalTaskHandle = osThreadCreate(osThread(gimbalTask), NULL);
-
-  /* definition and creation of shootTask */
-  osThreadDef(shootTask, shoot_task, osPriorityNormal, 0, 512);
-  shootTaskHandle = osThreadCreate(osThread(shootTask), NULL);
-
   /* definition and creation of keyTask */
   osThreadDef(keyTask, key_task, osPriorityNormal, 0, 128);
   keyTaskHandle = osThreadCreate(osThread(keyTask), NULL);
 
-  /* definition and creation of refereeRxTask */
-  osThreadDef(refereeRxTask, referee_rx_task, osPriorityNormal, 0, 128);
-  refereeRxTaskHandle = osThreadCreate(osThread(refereeRxTask), NULL);
+  /* definition and creation of transformTask */
+  osThreadDef(transformTask, transform_task, osPriorityNormal, 0, 256);
+  transformTaskHandle = osThreadCreate(osThread(transformTask), NULL);
 
-  /* definition and creation of refereeTxTask */
-  osThreadDef(refereeTxTask, referee_tx_task, osPriorityIdle, 0, 128);
-  refereeTxTaskHandle = osThreadCreate(osThread(refereeTxTask), NULL);
+  /* definition and creation of carTask */
+  osThreadDef(carTask, car_task, osPriorityNormal, 0, 256);
+  carTaskHandle = osThreadCreate(osThread(carTask), NULL);
+
+  /* definition and creation of servoRxTask */
+  osThreadDef(servoRxTask, servo_receive_task, osPriorityNormal, 0, 128);
+  servoRxTaskHandle = osThreadCreate(osThread(servoRxTask), NULL);
+
+  /* definition and creation of adsorptionTask */
+  osThreadDef(adsorptionTask, adsorption_task, osPriorityNormal, 0, 256);
+  adsorptionTaskHandle = osThreadCreate(osThread(adsorptionTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -282,42 +282,6 @@ __weak void detect_task(void const * argument)
   /* USER CODE END detect_task */
 }
 
-/* USER CODE BEGIN Header_gimbal_task */
-/**
-* @brief Function implementing the gimbalTask thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_gimbal_task */
-__weak void gimbal_task(void const * argument)
-{
-  /* USER CODE BEGIN gimbal_task */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END gimbal_task */
-}
-
-/* USER CODE BEGIN Header_shoot_task */
-/**
-* @brief Function implementing the shootTask thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_shoot_task */
-__weak void shoot_task(void const * argument)
-{
-  /* USER CODE BEGIN shoot_task */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END shoot_task */
-}
-
 /* USER CODE BEGIN Header_key_task */
 /**
 * @brief Function implementing the keyTask thread.
@@ -336,40 +300,76 @@ __weak void key_task(void const * argument)
   /* USER CODE END key_task */
 }
 
-/* USER CODE BEGIN Header_referee_rx_task */
+/* USER CODE BEGIN Header_transform_task */
 /**
-* @brief Function implementing the refereeRxTask thread.
+* @brief Function implementing the transformTask thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_referee_rx_task */
-__weak void referee_rx_task(void const * argument)
+/* USER CODE END Header_transform_task */
+__weak void transform_task(void const * argument)
 {
-  /* USER CODE BEGIN referee_rx_task */
+  /* USER CODE BEGIN transform_task */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
   }
-  /* USER CODE END referee_rx_task */
+  /* USER CODE END transform_task */
 }
 
-/* USER CODE BEGIN Header_referee_tx_task */
+/* USER CODE BEGIN Header_car_task */
 /**
-* @brief Function implementing the refereeTxTask thread.
+* @brief Function implementing the carTask thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_referee_tx_task */
-__weak void referee_tx_task(void const * argument)
+/* USER CODE END Header_car_task */
+__weak void car_task(void const * argument)
 {
-  /* USER CODE BEGIN referee_tx_task */
+  /* USER CODE BEGIN car_task */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
   }
-  /* USER CODE END referee_tx_task */
+  /* USER CODE END car_task */
+}
+
+/* USER CODE BEGIN Header_servo_receive_task */
+/**
+* @brief Function implementing the servoRxTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_servo_receive_task */
+__weak void servo_receive_task(void const * argument)
+{
+  /* USER CODE BEGIN servo_receive_task */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END servo_receive_task */
+}
+
+/* USER CODE BEGIN Header_adsorption_task */
+/**
+* @brief Function implementing the adsorptionTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_adsorption_task */
+__weak void adsorption_task(void const * argument)
+{
+  /* USER CODE BEGIN adsorption_task */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END adsorption_task */
 }
 
 /* Private application code --------------------------------------------------*/
