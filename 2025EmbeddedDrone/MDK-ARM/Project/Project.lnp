@@ -84,6 +84,8 @@
 "project\ft_servo_protocol.o"
 "project\ft_servo_uart.o"
 "project\pid.o"
+"project\motor_control.o"
+"project\chassis_control.o"
 "project\usb_device.o"
 "project\usbd_desc.o"
 "project\usbd_cdc_if.o"
