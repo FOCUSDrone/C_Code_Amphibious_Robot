@@ -17,6 +17,7 @@ The integrated version of the DJI C model development board code for the suction
 - cubemx配置等
 ## [FREETOS快速上手教程](https://github.com/FOCUSDrone/C_code_amphibious_robot/blob/main/FreeRTOS%E5%AE%8C%E5%85%A8%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C%E4%B9%8B%E4%B8%8A%E5%86%8C_%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.pdf)
 - FreeTos实时操作系统的资料
+## [C板用户手册](https://rm-static.djicdn.com/tem/35228/RoboMaster%20%20%E5%BC%80%E5%8F%91%E6%9D%BF%20C%20%E5%9E%8B%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C.pdf)
 
 
 ## 代码架构讲解
