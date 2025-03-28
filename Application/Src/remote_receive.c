@@ -83,10 +83,17 @@ void USART3_IRQHandler(void)
             
             if(this_time_rx_len == AT9S_FRAME_LENGTH)
             {
+				//增加校验位来进行相关处理
+				if(sbus_rx_buf[0][0]==0x00&&sbus_rx_buf[0][13]==0x83)
+				{
+				
                 sbus_to_remote_ch(sbus_rx_buf[0], remote_ch);
+				//新增逻辑：特定值替换，防止关闭遥控器时，低位值导致电机反转
+				modify_remote_ch(remote_ch);
                 //记录数据接收时间
                 detect_hook(DBUS_TOE);
 //                sbus_to_usart1(sbus_rx_buf[0]);
+				}
             }
         }
         else
@@ -114,11 +121,16 @@ void USART3_IRQHandler(void)
 
             if(this_time_rx_len == AT9S_FRAME_LENGTH)
             {
+				if(sbus_rx_buf[1][0]==0x00&&sbus_rx_buf[1][13]==0x83)
+				{
                 //处理遥控器数据
                 sbus_to_remote_ch(sbus_rx_buf[1], remote_ch);
+				//新增逻辑：特定值替换，防止关闭遥控器时，低位值导致电机反转
+				modify_remote_ch(remote_ch);
                 //记录数据接收时间
                 detect_hook(DBUS_TOE);
 //                sbus_to_usart1(sbus_rx_buf[1]);
+				}
             }
         }
     }
@@ -217,4 +229,10 @@ void remote_receive_init(void)
     RC_Init(sbus_rx_buf[0], sbus_rx_buf[1], SBUS_RX_BUF_NUM);
     memset(remote_ch, 0, SBUS_RX_BUF_NUM);
 }
-
+void modify_remote_ch(int16_t *ch_data)
+{
+    if(ch_data[2]  == 0x0320)
+	{
+			ch_data[2] = 0x0000;
+	}
+}
