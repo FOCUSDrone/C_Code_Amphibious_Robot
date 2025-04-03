@@ -36,6 +36,7 @@
 
 //#include "calibrate_task.h"
 #include "detect_task.h"
+#include "bsp_fan.h"
 
 
 //#define IMU_temp_PWM(pwm)  imu_pwm_set(pwm)                    //pwm给定
@@ -511,7 +512,11 @@ extern const fp32 *get_mag_data_point(void)
 
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+	
 {
+	/* 调用风扇FG信号回调处理函数 */
+    fan_fg_exti_callback(GPIO_Pin);
+	
     if(GPIO_Pin == INT1_ACCEL_Pin)
     {
         detect_hook(BOARD_ACCEL_TOE);

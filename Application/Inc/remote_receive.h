@@ -58,6 +58,7 @@
         }                                                \
     }
 
+
 extern void remote_receive_init(void);
 extern const int16_t *get_remote_ch_point(void);
 extern void sbus_to_usart1(uint8_t *sbus);

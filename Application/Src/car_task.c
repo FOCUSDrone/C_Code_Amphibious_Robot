@@ -37,7 +37,7 @@ void car_task(void *pvParameters)
         // 获取遥控器数据
         const int16_t *remote_ch = get_remote_ch_point();
         
-        // 设置底盘控制指令，使用遥控器的通道0和通道3
+        // 设置底盘控制指令，使用遥控器的通道2和通道1
         chassis_set_control(remote_ch[1], remote_ch[0]);
         
         // 执行底盘控制计算

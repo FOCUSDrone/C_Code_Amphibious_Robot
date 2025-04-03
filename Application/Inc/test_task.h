@@ -26,11 +26,12 @@
 #include "bsp_buzzer.h"
 #include "remote_receive.h"
 #include "arm_math.h"
+
 #include "CAN_receive.h"
 #include "key_task.h"
 #include "user_lib.h"
 
-#define TEST_TASK_WORK
+//#define TEST_TASK_WORK
 
 #define TEST_TASK_TIME  1
 
