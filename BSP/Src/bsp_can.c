@@ -5,7 +5,7 @@
   * @note       
   * @history
   *  Version    Date            Author          Modification
-  *  V1.0.0     2025-03-14      Claude          1. 重构优化
+  *  V1.0.0     2025-03-14      Feiziben          1. 重构优化
   *
   @verbatim
   ==============================================================================

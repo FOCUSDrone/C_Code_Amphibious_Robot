@@ -30,10 +30,10 @@
 
 extern UART_HandleTypeDef huart3;
 extern DMA_HandleTypeDef hdma_usart3_rx;
-static int16_t remote_ch[SBUS_RX_BUF_CH_NUM];
+int16_t remote_ch[SBUS_RX_BUF_CH_NUM];
 
 //接收原始数据，为18个字节，给了36个字节长度，防止DMA传输越界
-static uint8_t sbus_rx_buf[2][SBUS_RX_BUF_NUM];
+uint8_t sbus_rx_buf[2][SBUS_RX_BUF_NUM];
 
 /**
   * @brief          验证SBUS帧的完整性

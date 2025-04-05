@@ -10,7 +10,6 @@
 #include "key_task.h"
 #include "bsp_fan.h"
 #include "bsp_push_rog.h"
-#define TEST_TASK_WORK
 
 /* 按键输入数据 */
 const key_data_t *key_data_point;

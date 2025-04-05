@@ -5,7 +5,7 @@
   * @note       
   * @history
   *  Version        Date        Author      Modification
-  *
+  *V2.0.0           4.5         Feiziben    真机实验
   @verbatim
   ==============================================================================
 
@@ -26,6 +26,8 @@
 #include "ft_servo_app.h"
 #include "arm_math.h"
 #include "user_lib.h"
+#include <cmath>
+#include <cstdio>
 
 static transform_control_t transform_control;
 
@@ -54,12 +56,6 @@ static void transform_set_mode(transform_control_t* set_mode);
 static void transform_set_control(transform_control_t* control);
 
 
-/**
-  * @brief          判断是否左右手互博
-  * @param[in]      is_against 结构体控制块
-  * @retval         none
-  */
-static bool_t is_left_hand_against_right_hand(transform_control_t* is_against);
 
 
 /**
@@ -72,10 +68,7 @@ void transform_task(void const * argument)
     transform_init(&transform_control);
     
     
-    while (toe_is_error(SCSCL_SERVO_TOE))
-    {
-        vTaskDelay(TRANSFORM_TASK_TIME);
-    }
+    
     
 #ifdef TEST_TASK_WORK
     while (1)
@@ -128,56 +121,22 @@ static void transform_set_mode(transform_control_t* set_mode)
     transform_state_e state_cpy = set_mode->transform_state;
     uint32_t now_time = xTaskGetTickCount();
     /* disable */
-    if (switch_is_down(set_mode->remote_point[ALL_MOVE_ENABLE_CHANNEL]) ||
-        is_left_hand_against_right_hand(set_mode))
+    if (switch_is_down(set_mode->remote_point[ALL_MOVE_ENABLE_CHANNEL]))
     {
-        set_mode->before_disable_transform_state = set_mode->transform_state;
+		if (set_mode->transform_state != TRANSFORM_STOP)
+			set_mode->before_disable_transform_state = set_mode->transform_state;
         set_mode->transform_state = TRANSFORM_STOP;
     }
     /* disable to enable,recover state */
     else if (set_mode->transform_state == TRANSFORM_STOP)
     {
-        if (switch_is_up(set_mode->remote_point[TRANSFORM_REMOTE_CHANNEL])){
-            switch(set_mode->before_disable_transform_state){
-            case FLY_STATE:
-                set_mode->transform_state = FLY_STATE;
-                break;
-            case GROUND_TRANSFORM_FLY_PUSH_ROD:
-            case FLY_TRANSFORM_GROUND_PUSH_ROD:
-            case GROUND_STATE:
-                set_mode->transform_state = GROUND_TRANSFORM_FLY_PUSH_ROD;
-                break;
-            case GROUND_TRANSFORM_FLY_SERVO:
-            case FLY_TRANSFORM_GROUND_SERVO:
-                set_mode->transform_state = GROUND_TRANSFORM_FLY_SERVO;
-                break;
-            default:
-                break;
-            }
-        }
-        
-        else if (switch_is_down(set_mode->remote_point[TRANSFORM_REMOTE_CHANNEL])){
-            switch(set_mode->before_disable_transform_state){
-            case GROUND_STATE:
-                set_mode->transform_state = GROUND_STATE;
-                break;
-            case FLY_TRANSFORM_GROUND_SERVO:
-            case GROUND_TRANSFORM_FLY_SERVO:
-            case FLY_STATE:
-                set_mode->transform_state = FLY_TRANSFORM_GROUND_SERVO;
-                break;
-            case FLY_TRANSFORM_GROUND_PUSH_ROD:
-            case GROUND_TRANSFORM_FLY_PUSH_ROD:
-                set_mode->transform_state = FLY_TRANSFORM_GROUND_PUSH_ROD;
-                break;
-            default:
-                break;
-            }
-        }
+		set_mode->transform_state = set_mode->before_disable_transform_state;
+
     }
     /* init state */
     else if (set_mode->transform_state == TRANSFORM_INIT){
-        set_mode->transform_state = FLY_TRANSFORM_GROUND_SERVO;
+        set_mode->transform_state = FLY_TRANSFORM_GROUND_PUSH_ROD;
+        set_mode->push_rog_move_begin_time = xTaskGetTickCount();
     }
     /* static state */
     else if (set_mode->transform_state == FLY_STATE ||
@@ -186,7 +145,8 @@ static void transform_set_mode(transform_control_t* set_mode)
         if (switch_is_down(set_mode->remote_point[TRANSFORM_REMOTE_CHANNEL]) &&
             set_mode->transform_state == FLY_STATE)
         {
-            set_mode->transform_state = FLY_TRANSFORM_GROUND_SERVO;
+            set_mode->transform_state = FLY_TRANSFORM_GROUND_PUSH_ROD;
+            set_mode->push_rog_move_begin_time = xTaskGetTickCount();
         }
         else if (switch_is_up(set_mode->remote_point[TRANSFORM_REMOTE_CHANNEL]) &&
                  set_mode->transform_state == GROUND_STATE)
@@ -208,27 +168,23 @@ static void transform_set_mode(transform_control_t* set_mode)
             set_mode->transform_state = GROUND_TRANSFORM_FLY_SERVO;
         }
         else if (set_mode->transform_state == GROUND_TRANSFORM_FLY_SERVO &&
-                 set_mode->servo_front->move == 0 &&
-                 set_mode->servo_front->pos == FRONT_SERVO_FLY_POS &&
-                 set_mode->servo_behind->move == 0 &&
-                 set_mode->servo_behind->pos == BEHIND_SERVO_FLY_POS)
+                 abs(set_mode->servo_front->pos - FRONT_SERVO_FLY_POS) < 70 &&
+                 abs(set_mode->servo_behind->pos - BEHIND_SERVO_FLY_POS)<70)
         {
             set_mode->transform_state = FLY_STATE;
         }
         else if (set_mode->transform_state == FLY_TRANSFORM_GROUND_SERVO &&
-                 set_mode->servo_front->move == 0 &&
-                 set_mode->servo_front->pos == FRONT_SERVO_GROUND_POS &&
-                 set_mode->servo_behind->move == 0 &&
-                 set_mode->servo_behind->pos == BEHIND_SERVO_GROUND_POS)
+                 abs(set_mode->servo_front->pos - FRONT_SERVO_GROUND_POS) < 70  &&
+                 abs(set_mode->servo_behind->pos - BEHIND_SERVO_GROUND_POS) < 70)
         {
-            set_mode->transform_state = FLY_TRANSFORM_GROUND_PUSH_ROD;
-            set_mode->push_rog_move_begin_time = xTaskGetTickCount();
+            set_mode->transform_state = GROUND_STATE;
+            
         }
         else if (set_mode->transform_state == FLY_TRANSFORM_GROUND_PUSH_ROD &&
                  now_time > (set_mode->push_rog_move_begin_time +
                  PUSH_ROG_SHORTEN_NEED_TIME))
         {
-            set_mode->transform_state = GROUND_STATE;
+            set_mode->transform_state = FLY_TRANSFORM_GROUND_SERVO;
         }
     }
     
@@ -244,28 +200,47 @@ static void transform_set_control(transform_control_t* control)
 {
     switch(control->transform_state){
     case GROUND_STATE:
+		shorten_left_push_rog();
+		shorten_right_push_rog();
+		ft_servo_app_torque_enable(FRONT_SERVO_ID, 1);
+        ft_servo_app_torque_enable(BEHIND_SERVO_ID, 1);
+		break;
     case FLY_STATE:
+		elongate_left_push_rog();
+		elongate_right_push_rog();
+		ft_servo_app_torque_enable(FRONT_SERVO_ID, 1);
+        ft_servo_app_torque_enable(BEHIND_SERVO_ID, 1);
+		break;
     case TRANSFORM_STOP:
-    case TRANSFORM_INIT:
+		ft_servo_app_torque_enable(FRONT_SERVO_ID, 0);
+        ft_servo_app_torque_enable(BEHIND_SERVO_ID, 0);
         left_push_rog_off();
         right_push_rog_off();
+		break;
+	case TRANSFORM_INIT:
         ft_servo_app_torque_enable(FRONT_SERVO_ID, 0);
         ft_servo_app_torque_enable(BEHIND_SERVO_ID, 0);
+        left_push_rog_off();
+        right_push_rog_off();
         break;
     case FLY_TRANSFORM_GROUND_SERVO:
         if (control->last_transform_state != FLY_TRANSFORM_GROUND_SERVO){
-            left_push_rog_off();
-            right_push_rog_off();
+            ft_servo_app_torque_enable(FRONT_SERVO_ID, 1);
+            ft_servo_app_torque_enable(BEHIND_SERVO_ID, 1);
+			shorten_left_push_rog();
+            shorten_right_push_rog();
             ft_servo_app_write_pos(FRONT_SERVO_ID, FRONT_SERVO_GROUND_POS,
                                    SERVO_SPEED, SERVO_ACC);
-            ft_servo_app_write_pos(BEHIND_SERVO_ID, FRONT_SERVO_GROUND_POS,
+            ft_servo_app_write_pos(BEHIND_SERVO_ID, BEHIND_SERVO_GROUND_POS,
                                    SERVO_SPEED, SERVO_ACC);
         }
         break;
     case GROUND_TRANSFORM_FLY_SERVO:
         if (control->last_transform_state != GROUND_TRANSFORM_FLY_SERVO){
-            left_push_rog_off();
-            right_push_rog_off();
+            ft_servo_app_torque_enable(FRONT_SERVO_ID, 1);
+            ft_servo_app_torque_enable(BEHIND_SERVO_ID, 1);
+			elongate_left_push_rog();
+            elongate_right_push_rog();
             ft_servo_app_write_pos(FRONT_SERVO_ID, FRONT_SERVO_FLY_POS,
                                    SERVO_SPEED, SERVO_ACC);
             ft_servo_app_write_pos(BEHIND_SERVO_ID, BEHIND_SERVO_FLY_POS,
@@ -274,77 +249,19 @@ static void transform_set_control(transform_control_t* control)
         break;
     case FLY_TRANSFORM_GROUND_PUSH_ROD:
         if (control->last_transform_state != FLY_TRANSFORM_GROUND_PUSH_ROD){
-            shorten_left_push_rog(PUSH_ROG_ON_PWM);
-            shorten_right_push_rog(PUSH_ROG_ON_PWM);
             ft_servo_app_torque_enable(FRONT_SERVO_ID, 0);
             ft_servo_app_torque_enable(BEHIND_SERVO_ID, 0);
+            shorten_left_push_rog();
+            shorten_right_push_rog();
         }
         break;
     case GROUND_TRANSFORM_FLY_PUSH_ROD:
         if (control->last_transform_state != GROUND_TRANSFORM_FLY_PUSH_ROD){
-            elongate_left_push_rog(PUSH_ROG_ON_PWM);
-            elongate_right_push_rog(PUSH_ROG_ON_PWM);
             ft_servo_app_torque_enable(FRONT_SERVO_ID, 0);
             ft_servo_app_torque_enable(BEHIND_SERVO_ID, 0);
+            elongate_left_push_rog();
+            elongate_right_push_rog();
         }
         break;
     }
 }
-
-
-/**
-  * @brief          判断是否左右手互博
-  * @param[in]      is_against 结构体控制块
-  * @retval         none
-  */
-static bool_t is_left_hand_against_right_hand(transform_control_t* is_against){
-    static uint16_t against_time = 0;
-    static uint16_t reverse_time = 0;
-    bool_t ret = 0;
-    fp32 error_pos = 0;
-    
-    if (against_time > MAX_AGAINST_TIME ||
-        against_time == MAX_AGAINST_TIME)
-    {
-        ret = 1;
-    }
-    
-    if ((int16_abs(is_against->servo_front->load) > SERVO_MAX_LOAD ||
-        int16_abs(is_against->servo_behind->load) > SERVO_MAX_LOAD)&&
-        against_time < MAX_AGAINST_TIME)
-    {
-        against_time++;
-        reverse_time = 0;
-    }
-    else if (against_time == MAX_AGAINST_TIME && reverse_time < NEED_REVERSE_TIME){
-        reverse_time++;
-    }
-    else {
-        against_time = 0;
-    }
-    
-    return ret;
-}
-
-//if( shoot_control.block_time < BLOCK_TIME)
-//{
-//    shoot_control.speed_set = shoot_control.trigger_speed_set;
-//}
-//else
-//{
-//    shoot_control.speed_set = -shoot_control.trigger_speed_set;
-//}
-
-//if(fabs(shoot_control.speed) < BLOCK_TRIGGER_SPEED && shoot_control.block_time < BLOCK_TIME)
-//{
-//    shoot_control.block_time++;
-//    shoot_control.reverse_time = 0;
-//}
-//else if (shoot_control.block_time == BLOCK_TIME && shoot_control.reverse_time < REVERSE_TIME)
-//{
-//    shoot_control.reverse_time++;
-//}
-//else
-//{
-//    shoot_control.block_time = 0;
-//}

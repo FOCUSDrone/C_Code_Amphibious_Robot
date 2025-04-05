@@ -36,9 +36,9 @@
 #define REMOTE_SW_UP_RANGE                ((int16_t)700)
 #define REMOTE_SW_MID_RANGE               ((int16_t)100)
 #define REMOTE_SW_DOWN_RANGE              ((int16_t)-700)
-#define switch_is_down(ch)       ((ch) < REMOTE_SW_DOWN_RANGE)
+#define switch_is_down(ch)       ((ch) > REMOTE_SW_UP_RANGE)
 #define switch_is_mid(ch)        ((ch) > -REMOTE_SW_MID_RANGE && (ch) < REMOTE_SW_MID_RANGE)
-#define switch_is_up(ch)         ((ch) > REMOTE_SW_UP_RANGE)
+#define switch_is_up(ch)         ((ch) < REMOTE_SW_DOWN_RANGE)
 
 /**
   * @brief          遥控器的死区判断，因为遥控器的拨杆在中位的时候，不一定为0，
