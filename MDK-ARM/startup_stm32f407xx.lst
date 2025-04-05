@@ -829,15 +829,15 @@ ARM Macro Assembler    Page 13
   422 0000001C                 END
               00000000 
               00000000 
-Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
-erwork --depend=project\startup_stm32f407xx.d -oproject\startup_stm32f407xx.o -
-I../Core/Inc -I../Middlewares/Third_Party/ARM_CMSIS/CMSIS/DSP/Include -I../Driv
-ers/CMSIS/Include -I../Middlewares/ST/ARM/DSP/Inc -I.\RTE\_Project -I"D:\Progra
-m Files\keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include" -I"D:\Program Files\kei
-l_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Inclu
-de" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 524" --
-predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" --list=startup_stm32f
-407xx.lst startup_stm32f407xx.s
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
+interwork --depend=project\startup_stm32f407xx.d -oproject\startup_stm32f407xx.
+o -I../Core/Inc -I../Middlewares/Third_Party/ARM_CMSIS/CMSIS/DSP/Include -I../D
+rivers/CMSIS/Include -I../Middlewares/ST/ARM/DSP/Inc -I.\RTE\_Project -ID:\Keil
+_v5\ARM\PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include -ID:\Keil_v5\ARM\PACK\Keil\STM3
+2F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__MICRO
+LIB SETA 1" --predefine="__UVISION_VERSION SETA 534" --predefine="_RTE_ SETA 1"
+ --predefine="STM32F407xx SETA 1" --predefine="_RTE_ SETA 1" --list=startup_stm
+32f407xx.lst startup_stm32f407xx.s
 
 
 
